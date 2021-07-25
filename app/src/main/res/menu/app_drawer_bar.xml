@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <item
-            android:id="@+id/preferred"
-            android:title="@string/preferred"/>
+            android:id="@+id/mainFragment"
+            android:title="Main screen"/>
         <item
-            android:id="@+id/all_notes"
-            android:title="All notes"
+            android:id="@+id/settingFragment"
+            android:title="Settings"
             />
     </group>
 </menu>

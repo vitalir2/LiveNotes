@@ -6,13 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.github.livenote.R
+import io.github.livenote.databinding.FragmentMainBinding
+import io.github.livenote.databinding.FragmentViewNoteBinding
 
 class ViewNoteFragment : Fragment() {
+
+    private lateinit var binding: FragmentViewNoteBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_note, container, false)
+    ): View {
+        binding = FragmentViewNoteBinding.inflate(inflater, container, false)
+        return binding.root
     }
 }

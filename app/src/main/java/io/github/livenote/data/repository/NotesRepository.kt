@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface NotesRepository {
     fun insert(note: NoteDb)
     fun delete(note: NoteDb)
-    fun getAll(note: NoteDb): Flow<List<Note>>
+    fun getAll(): Flow<List<Note>>
 }

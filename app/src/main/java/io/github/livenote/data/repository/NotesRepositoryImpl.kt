@@ -19,7 +19,7 @@ class NotesRepositoryImpl @Inject constructor(
         return noteDao.delete(note)
     }
 
-    override fun getAll(note: NoteDb): Flow<List<Note>> {
+    override fun getAll(): Flow<List<Note>> {
         return noteDao.getAll().map {notes ->
             notes.map {note ->
                 Converters.convertNoteDbToNote(note)}}

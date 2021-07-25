@@ -6,8 +6,11 @@ import io.github.livenote.data.models.NoteDb
 import io.github.livenote.utils.Converters
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class NotesRepositoryImpl (private val noteDao: NoteDao) : NotesRepository {
+class NotesRepositoryImpl @Inject constructor(
+    private val noteDao: NoteDao
+    ) : NotesRepository {
     override fun insert(note: NoteDb) {
         return noteDao.insert(note)
     }

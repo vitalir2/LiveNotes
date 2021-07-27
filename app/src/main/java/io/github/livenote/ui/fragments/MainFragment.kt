@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import io.github.livenote.R
 import io.github.livenote.databinding.ActivityMainBinding
 import io.github.livenote.databinding.FragmentMainBinding
+import io.github.livenote.ui.adapter.ItemAdapter
 
 class MainFragment : Fragment() {
 
@@ -18,6 +19,8 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
+        binding.addRecyclerView.adapter = ItemAdapter(listOf())
+        binding.addRecyclerView.setHasFixedSize(true)
         return binding.root
     }
 }

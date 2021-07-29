@@ -9,7 +9,7 @@ import io.github.livenote.data.models.Note
 import io.github.livenote.R
 
 class ItemAdapter(
-    private val dataset: List<Note>
+    private var dataset: List<Note>
     ) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
@@ -17,6 +17,9 @@ class ItemAdapter(
         val textViewDate: TextView = view.findViewById(R.id.date_text)
     }
 
+    fun setList(list: List<Note>) {
+        dataset = list
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val adapterLayout = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_note, parent, false)

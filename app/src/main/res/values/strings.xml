@@ -5,4 +5,5 @@
     <string name="view_type">view_type</string>
     <string name="app_name_txt">LiveNote</string>
     <string name="preferred">Preferred</string>
+    <string name="title_text_hint">Название</string>
 </resources>

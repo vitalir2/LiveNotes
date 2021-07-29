@@ -4,14 +4,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.github.livenote.data.models.Note
 import io.github.livenote.R
 import io.github.livenote.databinding.ItemNoteBinding
 
+class NoteDiffCall : DiffUtil.ItemCallback<Note>() {
+    override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
+        return oldItem === newItem
+    }
+
+    override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
+        return oldItem == newItem
+    }
+}
+
 class ItemAdapter(
     private var dataset: List<Note>
-    ) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+    ) : ListAdapter<Note, ItemAdapter.ItemViewHolder>(NoteDiffCall()) {
 
     class ItemViewHolder(private val binding: ItemNoteBinding)
         : RecyclerView.ViewHolder(binding.root) {
@@ -21,9 +33,6 @@ class ItemAdapter(
             }
     }
 
-    fun setList(list: List<Note>) {
-        dataset = list
-    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val binding = ItemNoteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemViewHolder(binding)

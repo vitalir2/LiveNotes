@@ -31,7 +31,7 @@ class MainFragment : Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.notes.collect {
-                    ((binding.addRecyclerView.adapter) as ItemAdapter).setList(it)
+                    ((binding.addRecyclerView.adapter) as ItemAdapter).submitList(it)
                 }
             }
         }

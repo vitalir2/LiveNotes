@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -15,6 +17,7 @@ import io.github.livenote.ui.adapter.ItemAdapter
 import io.github.livenote.ui.viewmodel.MainFragmentViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import io.github.livenote.R
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -36,6 +39,13 @@ class MainFragment : Fragment() {
             }
         }
         binding.addRecyclerView.setHasFixedSize(true)
+        binding.addNoteFab.setOnClickListener {
+            requireActivity().supportFragmentManager.commit {
+                replace<AddNoteFragment>(R.id.nav_host_fragment_container)
+                setReorderingAllowed(true)
+                addToBackStack("AddNoteFragment")
+            }
+        }
         return binding.root
     }
 }

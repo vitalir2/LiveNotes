@@ -11,12 +11,12 @@ import javax.inject.Inject
 class NotesRepositoryImpl @Inject constructor(
     private val noteDao: NoteDao
     ) : NotesRepository {
-    override fun insert(note: NoteDb) {
-        return noteDao.insert(note)
+    override suspend fun insert(note: Note) {
+        return noteDao.insert(Converters.convertNoteToNoteDb(note))
     }
 
-    override fun delete(note: NoteDb) {
-        return noteDao.delete(note)
+    override suspend fun delete(note: Note) {
+        return noteDao.delete(Converters.convertNoteToNoteDb(note))
     }
 
     override fun getAll(): Flow<List<Note>> {

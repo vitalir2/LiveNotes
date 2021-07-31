@@ -1,12 +1,11 @@
 package io.github.livenote.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -45,5 +44,17 @@ class MainFragment : Fragment() {
             findNavController().navigate(R.id.action_mainFragment_to_addNoteFragment)
         }
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.notes.collect {
+                    ((binding.addRecyclerView.adapter) as NoteAdapter).submitList(it)
+                    Log.d("MAIN_FRAGMENT", "Successful set notes in adapter" + ", notes: "
+                    + it.toString())
+                }
+            }
+        }
     }
 }

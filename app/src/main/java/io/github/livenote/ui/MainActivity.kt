@@ -1,4 +1,4 @@
-    package io.github.livenote.ui
+package io.github.livenote.ui
 
 import android.os.Bundle
 import android.view.Menu
@@ -16,7 +16,7 @@ import io.github.livenote.R
 import io.github.livenote.databinding.ActivityMainBinding
 
 
-    @AndroidEntryPoint
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

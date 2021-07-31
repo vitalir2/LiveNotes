@@ -24,13 +24,14 @@
 
     <EditText
         android:id="@+id/content_text_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@android:color/transparent"
         android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_note_date"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/add_note_date" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

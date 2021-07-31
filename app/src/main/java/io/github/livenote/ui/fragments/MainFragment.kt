@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.livenote.databinding.FragmentMainBinding
 import io.github.livenote.ui.adapter.ItemAdapter
@@ -40,11 +41,7 @@ class MainFragment : Fragment() {
         }
         binding.addRecyclerView.setHasFixedSize(true)
         binding.addNoteFab.setOnClickListener {
-            requireActivity().supportFragmentManager.commit {
-                replace<AddNoteFragment>(R.id.nav_host_fragment_container)
-                setReorderingAllowed(true)
-                addToBackStack("AddNoteFragment")
-            }
+            findNavController().navigate(R.id.action_mainFragment_to_addNoteFragment)
         }
         return binding.root
     }

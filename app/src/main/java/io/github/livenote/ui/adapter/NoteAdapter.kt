@@ -1,14 +1,11 @@
 package io.github.livenote.ui.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.github.livenote.data.models.Note
-import io.github.livenote.R
 import io.github.livenote.databinding.ItemNoteBinding
 
 class NoteDiffCall : DiffUtil.ItemCallback<Note>() {
@@ -21,9 +18,7 @@ class NoteDiffCall : DiffUtil.ItemCallback<Note>() {
     }
 }
 
-class ItemAdapter(
-    private var dataset: List<Note>
-    ) : ListAdapter<Note, ItemAdapter.ItemViewHolder>(NoteDiffCall()) {
+class NoteAdapter : ListAdapter<Note, NoteAdapter.ItemViewHolder>(NoteDiffCall()) {
 
     class ItemViewHolder(private val binding: ItemNoteBinding)
         : RecyclerView.ViewHolder(binding.root) {
@@ -39,9 +34,6 @@ class ItemAdapter(
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val item = dataset[position]
-        holder.bind(item)
+        holder.bind(getItem(position))
     }
-
-    override fun getItemCount() = dataset.size
 }

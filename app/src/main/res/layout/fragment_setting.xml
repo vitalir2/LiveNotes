@@ -1,12 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/dark_theme_switch"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:text="@string/dark_theme"
+        android:textSize="24sp"
+        android:paddingStart="14dp"
+        android:paddingEnd="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        />
 
-</FrameLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_500"
+        app:layout_constraintBottom_toTopOf="@+id/notifications_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dark_theme_switch" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/notifications_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="@string/notifications_button"
+        android:textColor="@color/black"
+        android:gravity="start|center_vertical"
+        android:textSize="22sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:drawableEnd="@drawable/ic_baseline_chevron_right_32"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dark_theme_switch" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,4 +6,6 @@
     <string name="app_name_txt">LiveNote</string>
     <string name="preferred">Preferred</string>
     <string name="title_text_hint">Название</string>
+    <string name="dark_theme">Тёмная тема</string>
+    <string name="notifications_button">Уведомления</string>
 </resources>

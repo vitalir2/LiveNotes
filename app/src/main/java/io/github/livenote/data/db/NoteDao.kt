@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface NoteDao {
     @Insert
-    fun insert(note: NoteDb)
+    suspend fun insert(note: NoteDb)
 
     @Delete
-    fun delete(note: NoteDb)
+    suspend fun delete(note: NoteDb)
 
     @Query("SELECT * FROM notedb")
     fun getAll(): Flow<List<NoteDb>>

@@ -1,5 +1,6 @@
 package io.github.livenote.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +25,7 @@ class MainFragmentViewModel
             notesRepository.getAll()
                 .collect { newNotes ->
                     _notes.value = newNotes
+                    Log.d("VIEWMODEL_MAIN_FRAG", "Successful get notes")
                 }
         }
     }

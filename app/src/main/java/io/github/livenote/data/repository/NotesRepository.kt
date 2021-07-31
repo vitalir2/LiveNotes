@@ -5,7 +5,7 @@ import io.github.livenote.data.models.NoteDb
 import kotlinx.coroutines.flow.Flow
 
 interface NotesRepository {
-    fun insert(note: NoteDb)
-    fun delete(note: NoteDb)
+    suspend fun insert(note: Note)
+    suspend fun delete(note: Note)
     fun getAll(): Flow<List<Note>>
 }

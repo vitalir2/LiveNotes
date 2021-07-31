@@ -7,4 +7,8 @@ object Converters {
     fun convertNoteDbToNote(noteDb: NoteDb): Note {
         return Note(noteDb.name, noteDb.content)
     }
+
+    fun convertNoteToNoteDb(note: Note): NoteDb {
+        return NoteDb(note.name, note.content)
+    }
 }

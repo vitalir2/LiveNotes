@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.github.livenote.data.models.Note
 import io.github.livenote.databinding.ItemNoteBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 class NoteDiffCall : DiffUtil.ItemCallback<Note>() {
     override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
@@ -20,8 +22,15 @@ class NoteDiffCall : DiffUtil.ItemCallback<Note>() {
 
 class NoteAdapter : ListAdapter<Note, NoteAdapter.ItemViewHolder>(NoteDiffCall()) {
 
-    class ItemViewHolder(private val binding: ItemNoteBinding)
+    var clickFunction: ((Note) -> Unit)? = null
+
+    inner class ItemViewHolder(private val binding: ItemNoteBinding)
         : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                clickFunction?.invoke(currentList[adapterPosition])
+            }
+        }
             fun bind(note: Note) {
                 binding.titleText.text = note.name
                 binding.dateText.text = "01.01.2020"

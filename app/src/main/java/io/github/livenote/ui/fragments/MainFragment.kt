@@ -30,7 +30,15 @@ class MainFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.addRecyclerView.layoutManager = layoutManager
-        binding.addRecyclerView.adapter = NoteAdapter()
+        val noteAdapter = NoteAdapter()
+        noteAdapter.clickFunction = { note ->
+            val action = MainFragmentDirections.actionMainFragmentToViewNoteFragment(
+                noteName = note.name,
+                noteContent = note.content,
+            )
+            findNavController().navigate(action)
+        }
+        binding.addRecyclerView.adapter = noteAdapter
     }
 
     override fun onCreateView(

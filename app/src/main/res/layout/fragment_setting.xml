@@ -32,7 +32,6 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:text="@string/notifications_button"
-        android:textColor="@color/black"
         android:gravity="start|center_vertical"
         android:textSize="22sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"

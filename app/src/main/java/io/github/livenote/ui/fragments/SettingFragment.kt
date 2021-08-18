@@ -20,9 +20,12 @@ class SettingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSettingBinding.inflate(inflater, container, false)
+        setDarkThemeSwitch()
+        return binding.root
+    }
 
+    private fun setDarkThemeSwitch() {
         val sharedPreferences = activity?.getSharedPreferences("SWITCH_COND", Context.MODE_PRIVATE)
-
         binding.darkThemeSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -33,7 +36,7 @@ class SettingFragment : Fragment() {
             editor?.putBoolean("SWITCH_COND", switchCond)
             editor?.apply()
         }
-        sharedPreferences?.getBoolean("SWITCH_COND", false)
-        return binding.root
+        // Check if dark theme is checked
+        binding.darkThemeSwitch.isChecked = sharedPreferences?.getBoolean("SWITCH_COND", false) ?: false
     }
 }

@@ -13,5 +13,6 @@
     <color name="blue_700">#0069C0</color>
     <color name="blue_500">#2196F3</color>
     <color name="dark_grey">#121212</color>
-    <color name="dark_grey_primary">#191919</color>
+    <color name="dark_grey_primary">#303030</color>
+    <color name="grey_700">#616161</color>
 </resources>

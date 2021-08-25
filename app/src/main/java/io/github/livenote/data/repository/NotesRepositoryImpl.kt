@@ -19,6 +19,10 @@ class NotesRepositoryImpl @Inject constructor(
         return noteDao.delete(Converters.convertNoteToNoteDb(note))
     }
 
+    override suspend fun getByName(name: String): Note? {
+        return noteDao.getByName(name)?.let { Converters.convertNoteDbToNote(it) }
+    }
+
     override fun getAll(): Flow<List<Note>> {
         return noteDao.getAll().map {notes ->
             notes.map {note ->

@@ -17,18 +17,22 @@ import io.github.livenote.databinding.FragmentAddNoteBinding
 import io.github.livenote.databinding.FragmentViewNoteBinding
 import io.github.livenote.ui.viewmodel.AddNoteFragmentViewModel
 import io.github.livenote.ui.viewmodel.MainFragmentViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 @AndroidEntryPoint
 class AddNoteFragment : Fragment() {
 
     private lateinit var binding: FragmentAddNoteBinding
     private val viewModel: AddNoteFragmentViewModel by viewModels()
+    private lateinit var currentDate: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddNoteBinding.inflate(inflater, container, false)
+        currentDate =  SimpleDateFormat("dd:M:yyyy", Locale.getDefault()).format(Date())
         binding.contentTextInput.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus &&  binding.contentTextInput.text.isNotBlank()
                 && binding.titleTextInput.text.isNotBlank()) {
@@ -36,6 +40,7 @@ class AddNoteFragment : Fragment() {
                     Note(
                         name = binding.titleTextInput.text.toString(),
                         content = binding.contentTextInput.text.toString(),
+                        date = currentDate,
                     )
                 )
             }

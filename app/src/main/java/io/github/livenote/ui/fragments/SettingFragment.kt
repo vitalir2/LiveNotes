@@ -27,10 +27,11 @@ class SettingFragment : Fragment() {
     private fun setDarkThemeSwitch() {
         val sharedPreferences = activity?.getSharedPreferences("SWITCH_COND", Context.MODE_PRIVATE)
         binding.darkThemeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked)
+            if (isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            else
+            } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
             val switchCond = binding.darkThemeSwitch.isChecked
             val editor = sharedPreferences?.edit()
             editor?.putBoolean("SWITCH_COND", switchCond)

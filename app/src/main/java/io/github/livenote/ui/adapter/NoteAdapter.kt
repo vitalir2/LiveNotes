@@ -33,7 +33,7 @@ class NoteAdapter : ListAdapter<Note, NoteAdapter.ItemViewHolder>(NoteDiffCall()
         }
             fun bind(note: Note) {
                 binding.titleText.text = note.name
-                binding.dateText.text = "01.01.2020"
+                binding.dateText.text = note.date
             }
     }
 

@@ -7,5 +7,6 @@ import kotlinx.coroutines.flow.Flow
 interface NotesRepository {
     suspend fun insert(note: Note)
     suspend fun delete(note: Note)
+    suspend fun getByName(name: String): Note?
     fun getAll(): Flow<List<Note>>
 }

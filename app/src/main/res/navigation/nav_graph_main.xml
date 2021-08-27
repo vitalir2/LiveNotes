@@ -9,18 +9,18 @@
         android:name="io.github.livenote.ui.fragments.MainFragment"
         android:label="MainFragment" >
         <action
-            android:id="@+id/action_mainFragment_to_addNoteFragment"
-            app:destination="@id/addNoteFragment" />
+            android:id="@+id/action_mainFragment_to_addViewNoteFragment"
+            app:destination="@id/addViewNoteFragment" />
         <action
             android:id="@+id/action_mainFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
     </fragment>
     <fragment
-        android:id="@+id/addNoteFragment"
-        android:name="io.github.livenote.ui.fragments.AddNoteFragment"
-        android:label="AddNoteFragment" >
+        android:id="@+id/addViewNoteFragment"
+        android:name="io.github.livenote.ui.fragments.AddViewNoteFragment"
+        android:label="AddViewNoteFragment" >
         <action
-            android:id="@+id/action_addNoteFragment_to_mainFragment"
+            android:id="@+id/action_addViewNoteFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
         <argument
             android:name="noteName"

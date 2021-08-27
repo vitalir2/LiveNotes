@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddNoteFragmentViewModel
+class AddViewNoteFragmentViewModel
 @Inject constructor(
     private val notesRepository: NotesRepository
 ) : ViewModel() {

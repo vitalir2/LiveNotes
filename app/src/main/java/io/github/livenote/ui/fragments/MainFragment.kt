@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.livenote.databinding.FragmentMainBinding
@@ -30,9 +31,13 @@ class MainFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.addRecyclerView.layoutManager = layoutManager
+
+        val decoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
+        binding.addRecyclerView.addItemDecoration(decoration)
+
         val noteAdapter = NoteAdapter()
         noteAdapter.clickFunction = { note ->
-            val action = MainFragmentDirections.actionMainFragmentToAddNoteFragment(
+            val action = MainFragmentDirections.actionMainFragmentToAddViewNoteFragment(
                 noteName = note.name,
                 noteContent = note.content,
             )
@@ -49,7 +54,7 @@ class MainFragment : Fragment() {
 
         setRecyclerView()
         binding.addNoteFab.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_addNoteFragment)
+            findNavController().navigate(R.id.action_mainFragment_to_addViewNoteFragment)
         }
         return binding.root
     }

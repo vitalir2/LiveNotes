@@ -13,11 +13,10 @@ class AddViewNoteFragmentViewModel
 @Inject constructor(
     private val notesRepository: NotesRepository
 ) : ViewModel() {
-    fun insertNote(note: Note) {
+    fun insertNoteDeleteOld(note: Note, oldName: String) {
         viewModelScope.launch {
-            val dbNote = notesRepository.getByName(note.name)
-            if (dbNote != null) {
-                notesRepository.delete(note)
+            if (oldName != note.name) {
+                notesRepository.delete(Note(oldName, "", ""))
             }
             notesRepository.insert(note)
         }

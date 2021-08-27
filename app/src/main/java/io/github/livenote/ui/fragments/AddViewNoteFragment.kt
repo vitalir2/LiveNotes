@@ -22,6 +22,7 @@ class AddViewNoteFragment : Fragment() {
     private val viewModel: AddViewNoteFragmentViewModel by viewModels()
     private val arguments: AddViewNoteFragmentArgs by navArgs()
     private lateinit var currentDate: String
+    private var oldName: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,12 +34,13 @@ class AddViewNoteFragment : Fragment() {
             if (!hasFocus && binding.contentTextInput.text.isNotBlank()
                 && binding.titleTextInput.text.isNotBlank()
             ) {
-                viewModel.insertNote(
+                viewModel.insertNoteDeleteOld(
                     Note(
                         name = binding.titleTextInput.text.toString(),
                         content = binding.contentTextInput.text.toString(),
                         date = currentDate,
-                    )
+                    ),
+                    oldName,
                 )
             }
         }
@@ -46,8 +48,10 @@ class AddViewNoteFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if (arguments.noteName != " " && arguments.noteContent != " ")
+        oldName = arguments.noteName
+        if (arguments.noteName.isNotBlank() && arguments.noteContent.isNotBlank()) {
             binding.titleTextInput.text = arguments.noteName.toEditable()
-        binding.contentTextInput.text = arguments.noteContent.toEditable()
+            binding.contentTextInput.text = arguments.noteContent.toEditable()
+        }
     }
 }

@@ -30,6 +30,8 @@ class MainFragment : Fragment() {
     private fun setRecyclerView() {
         val layoutManager = LinearLayoutManager(context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
+        layoutManager.reverseLayout = true
+        layoutManager.stackFromEnd = true
         binding.addRecyclerView.layoutManager = layoutManager
 
         val decoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)

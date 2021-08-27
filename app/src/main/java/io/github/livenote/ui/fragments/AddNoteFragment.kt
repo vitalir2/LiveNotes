@@ -10,11 +10,11 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.livenote.R
 import io.github.livenote.data.models.Note
 import io.github.livenote.databinding.FragmentAddNoteBinding
-import io.github.livenote.databinding.FragmentViewNoteBinding
 import io.github.livenote.ui.viewmodel.AddNoteFragmentViewModel
 import io.github.livenote.ui.viewmodel.MainFragmentViewModel
 
@@ -23,6 +23,8 @@ class AddNoteFragment : Fragment() {
 
     private lateinit var binding: FragmentAddNoteBinding
     private val viewModel: AddNoteFragmentViewModel by viewModels()
+    private val arguments: AddNoteFragmentArgs by navArgs()
+    private fun String.toEditable(): Editable =  Editable.Factory.getInstance().newEditable(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,4 +44,33 @@ class AddNoteFragment : Fragment() {
         }
         return binding.root
     }
-}
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        if (arguments.noteName != " " && arguments.noteContent != " ")
+          binding.titleTextInput.text = arguments.noteName.toEditable()
+          binding.contentTextInput.text = arguments.noteContent.toEditable()
+      }
+    }
+    /*override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.titleTextInput.text = arguments.noteName
+        binding.contentTextInput.text = arguments.noteContent
+    }*/
+/*class ViewNoteFragment : Fragment() {
+
+    private lateinit var binding: FragmentViewNoteBinding
+
+    private val arguments: ViewNoteFragmentArgs by navArgs()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentViewNoteBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.titleTv.text = arguments.noteName
+        binding.contentTv.text = arguments.noteContent
+    }
+}*/

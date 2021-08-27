@@ -32,7 +32,7 @@ class MainFragment : Fragment() {
         binding.addRecyclerView.layoutManager = layoutManager
         val noteAdapter = NoteAdapter()
         noteAdapter.clickFunction = { note ->
-            val action = MainFragmentDirections.actionMainFragmentToViewNoteFragment(
+            val action = MainFragmentDirections.actionMainFragmentToAddNoteFragment(
                 noteName = note.name,
                 noteContent = note.content,
             )

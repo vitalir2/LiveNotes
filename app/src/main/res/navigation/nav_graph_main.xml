@@ -12,9 +12,6 @@
             android:id="@+id/action_mainFragment_to_addNoteFragment"
             app:destination="@id/addNoteFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_viewNoteFragment"
-            app:destination="@id/viewNoteFragment" />
-        <action
             android:id="@+id/action_mainFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
     </fragment>
@@ -25,27 +22,17 @@
         <action
             android:id="@+id/action_addNoteFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <argument
+            android:name="noteName"
+            app:argType="string"
+            android:defaultValue=" " />
+        <argument
+            android:name="noteContent"
+            app:argType="string"
+            android:defaultValue=" " />
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
         android:name="io.github.livenote.ui.fragments.SettingFragment"
         android:label="SettingFragment" />
-    <fragment
-        android:id="@+id/viewNoteFragment"
-        android:name="io.github.livenote.ui.fragments.ViewNoteFragment"
-        android:label="ViewNoteFragment">
-
-        <argument
-            android:name="noteName"
-            app:argType="string"
-            android:defaultValue=""
-            />
-
-        <argument
-            android:name="noteContent"
-            app:argType="string"
-            android:defaultValue=""
-            />
-
-    </fragment>
 </navigation>

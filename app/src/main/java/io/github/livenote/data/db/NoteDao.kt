@@ -15,6 +15,9 @@ interface NoteDao {
     @Delete
     suspend fun delete(note: NoteDb)
 
+    @Query("SELECT * FROM notedb WHERE name == :name")
+    suspend fun getByName(name: String): NoteDb?
+
     @Query("SELECT * FROM notedb")
     fun getAll(): Flow<List<NoteDb>>
 }

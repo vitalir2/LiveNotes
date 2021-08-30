@@ -1,13 +1,12 @@
 package io.github.livenote.ui.fragments
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.livenote.R
 import io.github.livenote.data.models.Note
 import io.github.livenote.databinding.FragmentAddViewNoteBinding
 import io.github.livenote.ui.viewmodel.AddViewNoteFragmentViewModel
@@ -24,16 +23,26 @@ class AddViewNoteFragment : Fragment() {
     private lateinit var currentDate: String
     private var oldName: String = ""
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentAddViewNoteBinding.inflate(inflater, container, false)
-        currentDate = SimpleDateFormat("dd.MM.yyyy hh:mm", Locale.getDefault()).format(Date())
-        binding.contentTextInput.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && binding.contentTextInput.text.isNotBlank()
-                && binding.titleTextInput.text.isNotBlank()
-            ) {
+    private var actionMode: ActionMode? = null
+    private val saveNote = object : ActionMode.Callback {
+        override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            val inflater = mode?.menuInflater
+            inflater?.inflate(R.menu.top_app_bar, menu)
+            return true
+        }
+
+        override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean {
+            return true
+        }
+
+        override fun onActionItemClicked(p0: ActionMode?, p1: MenuItem?): Boolean {
+            return true
+        }
+
+        override fun onDestroyActionMode(p0: ActionMode?) {
+            actionMode = null
+            if (binding.titleTextInput.text.isNotBlank()
+                && binding.contentTextInput.text.isNotBlank()) {
                 viewModel.insertNoteDeleteOld(
                     Note(
                         name = binding.titleTextInput.text.toString(),
@@ -44,7 +53,32 @@ class AddViewNoteFragment : Fragment() {
                 )
             }
         }
+
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentAddViewNoteBinding.inflate(inflater, container, false)
+        currentDate = SimpleDateFormat("dd.MM.yyyy hh:mm", Locale.getDefault()).format(Date())
+        binding.contentTextInput.setOnFocusChangeListener { _, hasFocus ->
+            actionOnFocus(hasFocus)
+        }
+        binding.titleTextInput.setOnFocusChangeListener { _, hasFocus ->
+            actionOnFocus(hasFocus)
+        }
         return binding.root
+    }
+
+    private fun actionOnFocus(hasFocus: Boolean) {
+        if (hasFocus) {
+            when(actionMode) {
+                null -> {
+                    actionMode = activity?.startActionMode(saveNote)
+                }
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

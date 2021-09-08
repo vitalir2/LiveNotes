@@ -17,4 +17,9 @@ interface NoteDao {
 
     @Query("SELECT * FROM notedb")
     fun getAll(): Flow<List<NoteDb>>
+
+    @Query("SELECT * FROM noteDb WHERE " +
+            "name LIKE '%' || :query || '%' " +
+            "OR  content LIKE '%' || :query || '%'")
+    fun getSearchResult(query: String): Flow<List<NoteDb>>
 }

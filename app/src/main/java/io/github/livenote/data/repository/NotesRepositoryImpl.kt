@@ -28,4 +28,12 @@ class NotesRepositoryImpl @Inject constructor(
             notes.map {note ->
                 Converters.convertNoteDbToNote(note)}}
     }
+
+    override fun getSearchResultStream(query: String): Flow<List<Note>> {
+        return noteDao.getSearchResult(query).map {notes ->
+            notes.map {note ->
+                Converters.convertNoteDbToNote(note)
+            }
+        }
+    }
 }

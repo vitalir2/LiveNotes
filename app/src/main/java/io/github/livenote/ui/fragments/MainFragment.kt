@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -25,6 +26,7 @@ import io.github.livenote.R
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
+    private val adapter = NoteAdapter()
     private val viewModel: MainFragmentViewModel by viewModels()
 
     private fun setRecyclerView() {
@@ -37,15 +39,52 @@ class MainFragment : Fragment() {
         val decoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
         binding.addRecyclerView.addItemDecoration(decoration)
 
-        val noteAdapter = NoteAdapter()
-        noteAdapter.clickFunction = { note ->
+        adapter.clickFunction = { note ->
             val action = MainFragmentDirections.actionMainFragmentToAddViewNoteFragment(
                 noteName = note.name,
                 noteContent = note.content,
             )
             findNavController().navigate(action)
         }
-        binding.addRecyclerView.adapter = noteAdapter
+        binding.addRecyclerView.adapter = adapter
+    }
+
+    private fun setSearchView() {
+        binding.searchView.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String): Boolean {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        if (newText.isNotBlank()) {
+                            viewModel.searchNotes(newText).collect {
+                                adapter.submitList(it)
+                            }
+                        } else {
+                            viewModel.notes.collect {
+                                adapter.submitList(it)
+                            }
+                        }
+                    }
+                }
+                return true
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        if (query.isNotBlank()) {
+                            viewModel.searchNotes(query).collect {
+                                adapter.submitList(it)
+                            }
+                        } else {
+                            viewModel.notes.collect {
+                                adapter.submitList(it)
+                            }
+                        }
+                    }
+                }
+                return true
+            }
+        })
     }
 
     override fun onCreateView(
@@ -53,19 +92,21 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
-
-        setRecyclerView()
-        binding.addNoteFab.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_addViewNoteFragment)
-        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setRecyclerView()
+        setSearchView()
+
+        binding.addNoteFab.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_addViewNoteFragment)
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.notes.collect {
-                    ((binding.addRecyclerView.adapter) as NoteAdapter).submitList(it)
+                    (adapter.submitList(it))
                     Log.d("MAIN_FRAGMENT", "Successful set notes in adapter" + ", notes: "
                     + it.toString())
                 }

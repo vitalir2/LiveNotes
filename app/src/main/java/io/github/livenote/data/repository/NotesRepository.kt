@@ -9,4 +9,5 @@ interface NotesRepository {
     suspend fun delete(note: Note)
     suspend fun getByName(name: String): Note?
     fun getAll(): Flow<List<Note>>
+    fun getSearchResultStream(query: String): Flow<List<Note>>
 }
